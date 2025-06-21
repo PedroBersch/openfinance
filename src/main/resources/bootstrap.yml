@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: opf-payments-consents-regulatory-api
+logging:
+  level:
+    org.springframework.validation: TRACE
+    org.hibernate.validator: DEBUG
