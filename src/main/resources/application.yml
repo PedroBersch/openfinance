@@ -1,0 +1,4 @@
+spring:
+  application:
+    name: opf-payments-consents-regulatory-api
+

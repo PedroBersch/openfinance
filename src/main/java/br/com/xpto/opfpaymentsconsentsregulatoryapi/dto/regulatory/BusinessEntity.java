@@ -1,6 +1,7 @@
 package br.com.xpto.opfpaymentsconsentsregulatoryapi.dto.regulatory;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
@@ -14,5 +15,6 @@ import lombok.*;
 
 public class BusinessEntity {
     @NotNull
+    @Valid
     private DocumentCNPJ document;
 }

@@ -1,6 +1,7 @@
-package br.com.xpto.opfpaymentsconsentsregulatoryapi.controller.impl;
+package br.com.xpto.opfpaymentsconsentsregulatoryapi.controller;
 
 import br.com.xpto.opfpaymentsconsentsregulatoryapi.dto.request.RequestCreatePaymentConsent;
+import br.com.xpto.opfpaymentsconsentsregulatoryapi.dto.response.ResponseCreatePaymentConsent;
 import br.com.xpto.opfpaymentsconsentsregulatoryapi.service.ConsentService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -17,15 +18,15 @@ import java.net.URI;
 @RequestMapping("/v4")
 @RequiredArgsConstructor
 public class ConsentController {
-    ConsentService consentService = new ConsentService();
+    private final ConsentService consentService;
 
     @PostMapping("/consents")
-    public ResponseEntity<?> createConsent(
-        @Validated @RequestBody final RequestCreatePaymentConsent request) {
+    public ResponseEntity<ResponseCreatePaymentConsent> createConsent(
+            @Valid @RequestBody final RequestCreatePaymentConsent request) {
         var response = consentService.createConsent(request);
 
         return ResponseEntity
-            .created(URI.create(response.getSelf().getSelf()))
-            .body(response);
+                .created(URI.create(response.getSelf().getSelf()))
+                .body(response);
     }
 }
