@@ -11,4 +11,5 @@ import lombok.*;
 public class FieldErrorDetails {
     private String field;
     private String message;
+    private String jakartaCode;
 }

@@ -14,8 +14,7 @@ import lombok.*;
 @NoArgsConstructor
 public class DocumentCPF {
     @Valid
-    @NotNull
-    @NotBlank
+    @NotNull()
     @Pattern(regexp = "^\\d{11}$", message = "Valor do campo loggedUser.document.identification não seguem regras de negôcio")
     private String identification;
     @Valid

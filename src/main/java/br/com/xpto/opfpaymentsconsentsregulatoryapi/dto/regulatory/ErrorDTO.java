@@ -11,5 +11,5 @@ import lombok.*;
 public class ErrorDTO {
     private String code;
     private String title;
-    private String detail;
+    private String details;
 }
