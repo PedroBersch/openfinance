@@ -27,8 +27,21 @@ public class GlobalExceptionHandler {
                 .body(responseError);
     }
 
+    @ExceptionHandler(CreditorException.class)
+    public ResponseEntity<Object> handleCreditorException(CreditorException exception) {
+        var errorBody = ResponseError.builder()
+                .errors(List.of(new ErrorDTO(exception.getCode(),
+                        exception.getTitle(),
+                        String.format(exception.getDetail(), "creditor.cpfCnpj"))))
+                .meta(new Meta(LocalDateTime.now().toString()))
+                .build();
+        return ResponseEntity
+                .status(HttpStatus.UNPROCESSABLE_ENTITY)
+                .body(errorBody);
+    }
+
     private ResponseError buildErrorResponse(List<FieldErrorDetails> errors, String code) {
-        if ("Pattern" .equals(code)) {
+        if ("Pattern".equals(code)) {
             return buildErrorParametroInvalid(errors);
         }
         return buildErrorParametroNaoInformado(errors);
