@@ -30,10 +30,10 @@ public class ConsentService {
         var personType = creditor.getPersonType();
         var cpfCnpj = creditor.getCpfCnpj();
         if (personType == EnumPaymentPersonType.PESSOA_JURIDICA && cpfCnpj.length() != 14) {
-            throw new CreditorException(EnumErrorCreateConsent.PARAMETRO_INVALIDO.name(), EnumErrorCreateConsent.PARAMETRO_INVALIDO.getTitle(), EnumErrorCreateConsent.PARAMETRO_INVALIDO.getDetail());
+            throw new CreditorException(EnumErrorCreateConsent.PARAMETRO_INVALIDO, "creditor.cpfCnpj");
         }
         if (personType == EnumPaymentPersonType.PESSOA_NATURAL && cpfCnpj.length() != 11) {
-            throw new CreditorException(EnumErrorCreateConsent.PARAMETRO_INVALIDO.name(), EnumErrorCreateConsent.PARAMETRO_INVALIDO.getTitle(), EnumErrorCreateConsent.PARAMETRO_INVALIDO.getDetail());
+            throw new CreditorException(EnumErrorCreateConsent.PARAMETRO_INVALIDO, "creditor.cpfCnpj");
         }
     }
 

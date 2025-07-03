@@ -9,11 +9,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Objects;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -28,16 +28,12 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(CreditorException.class)
-    public ResponseEntity<Object> handleCreditorException(CreditorException exception) {
-        var errorBody = ResponseError.builder()
-                .errors(List.of(new ErrorDTO(exception.getCode(),
-                        exception.getTitle(),
-                        String.format(exception.getDetail(), "creditor.cpfCnpj"))))
+    @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
+    public ResponseError handleInvalidArgumentCreditorException(CreditorException exception) {
+        return ResponseError.builder()
+                .errors(List.of(new ErrorDTO(exception.getError().getCode(), exception.getError().getTitle(), String.format(exception.getError().getDetail(), exception.getMessage()))))
                 .meta(new Meta(LocalDateTime.now().toString()))
                 .build();
-        return ResponseEntity
-                .status(HttpStatus.UNPROCESSABLE_ENTITY)
-                .body(errorBody);
     }
 
     private ResponseError buildErrorResponse(List<FieldErrorDetails> errors, String code) {
